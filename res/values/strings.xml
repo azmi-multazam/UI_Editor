@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">UI Editor</string>
+    <string name="action_about">About</string>
+    <string name="action_help">Help</string>
+    <string name="action_setting">Setting</string>
+    <string name="hello_world">Hello world!</string>
+	<string name="name">Name</string>
+	<string name="quote">Quote</string>
+	<string name="carrier1">Text 1</string>
+	<string name="carrier2">Text 2</string>
+	<string name="carrier3">Text 3</string>
+	<string name="save">Save Contact</string>
+	<string name="info">Photo disimpan di SdCard/UI_Editor, lanjutkan?</string>
+	<string name="high">High</string>
+	<string name="medium">Medium</string>
+	<string name="low">Low</string>
+	<string name="note">angka 1 artinya ratio 3:2.  
+
+angka 2 artinya ratio 2:1</string>
+</resources>

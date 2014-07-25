@@ -1,0 +1,158 @@
+<!DOCTYPE html> 
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<title>UI Editor - Help</title> 
+	<link rel="stylesheet"  href="css/themes/default/jquery.mobile-1.1.0.css" />  
+	<link rel="stylesheet" href="assets/css/jqm-docs.css"/>
+
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery.mobile-1.1.0.js"></script>
+
+</head> 
+<body> 
+
+	<div data-role="page" class="type-interior">
+
+	<div data-role="content">
+		<div data-role="collapsible-set" data-content-theme="b">
+			<div data-role="collapsible" data-theme="b" data-content-theme="b">
+				<h3>ReadMe</h3>
+				</br>- Biasakan backup sebelum merubah SystemUI
+				</br>
+				</br>- Aplikasi ini udah otomatis membuat folder UI_Editor/fonts di SdCard
+				</br>
+				</br>- kalo abis restart, photo di statusbar agak lama munculnya karena system harus menscan dulu cache aplikasi.
+				</br> beda ama app nemesis yang tidak menggunakan cache karena hanya mengirim perintah aja. 
+				</br> Kalo App UiEditor ini pake cache dulu lalu dikirim ke statusbar. 
+				</br>
+				</br>- Photo layout FB di statusbar akan hilang sementara ketika agan selesai pilih photo galery dan akan muncul setelah agan tap "Set Photo". 
+				ini berlaku di photo profile dan cover di tab PROFIL tapi tidak untuk tab OTHER. 
+				</br>
+				</br>- <b>"Set Photo"</b> menyetel photo menjadi photo profile di layout FBui tapi tidak menyimpan photo, 
+				dan <b>"Save Photo"</b> menyimpan photo di sdCard dan otomatis akan merubah Layout FB ui statusbar.
+				</br>
+				</br>- tidak ada yang sempurna, apalagi hasil nyubi gan.. kalo ada bug, silahkan informasikan.
+				</br>
+				</br>
+				</p>
+			</div>
+			<div data-role="collapsible" data-theme="e" data-content-theme="e">
+				<h3>Installasi</h3>
+				</br>- Buat yg udah make UI_Editor.apk v.1, tinggal masukin smali.v2 lalu ganti id publiknya
+				ama id publik yang ada di smali.v1, jadi catet dulu id publicnya sebelum dihapus.
+				</br>- Sebetulnya di v.2 ini cuma mengupdate smali text aja, jadi smali buat gambar/photo yg di
+				folder cover, owner dan statusbar tetep pake v.1 jg ngga apa2.
+				</br>LINK smali.v2 ada dibawah.
+				</br>=============
+				</br>
+				</br>- Buat pengguna baru silahkan ikuti langkahnya dibawah ini :
+				</br>
+				</br> Asumsi agan udah pake FB ui + aplikasi Lenox & Nemesis:
+				</br>
+				</br>1. Decompile SystemUI.apk
+				</br>
+				</br>2. Buka layout FBui agan, perhatikan line dibawah ini:
+				<dt><code>
+				</br><font color="#FF00FF">&lt;com.lenox.Lenox_Label.lenoxpicture</font> android:id=<font color="#FF00FF">"@id/lenoxpic"</font> ...../&gt
+				</br></br><font color="blue">&lt;com.nemesis.ownerinfo.Carrier</font> android:id=<font color="blue">"@id/pp"</font> ...../&gt
+				</br></br><font color="red">&lt;com.nemesis.ownerinfo.NamePlate</font> android:id=<font color="red">"@id/profile_name"</font> .... /&gt
+				</br></br><font color="green">&lt;com.lenox.Lenox_Label.lenoxlabel</font> android:id=<font color="green">"@id/lenoxlabel"</font> .... /&gt
+				</code></dt>
+				</br><b>Ganti adress smalinya jadi begini :</b>
+				<dt><code>
+				</br><font color="#FF00FF">&lt;com.zam.cover.Cover</font> android:id=<font color="#FF00FF">"@id/lenoxpic"</font> ... /&gt
+				</br></br><font color="blue">&lt;com.zam.owner.ProfilePicture</font> android:id=<font color="blue">"@id/pp"</font> ... /&gt
+				</br></br><font color="red">&lt;com.zam.owner.ProfileName</font> android:id=<font color="red">"@id/profile_name"</font> ... /&gt
+				</br></br><font color="green">&lt;com.zam.cover.Quote</font> android=<font color="green">"@id/lenoxlabel"</font> ... /&gt
+				</code></dt>
+				</br><b><i>NOTE :</i></b>  <code> android="@id/..."</code> ga usah diganti supaya ga usah recompile dan decompile lagi.
+				Abaikan @id/.. kalo beda ama punya agan.
+				</br></br>
+				</br>4. Buka public.xml, cari id yang tertera di code atas tadi, id ini akan di pake ama smali nantinya :
+				<dt><code></br>&lt;public type="id" name=<font color="#FF00FF">"lenoxpic" id="0x7f0XXXXX"</font> />
+				</br>&lt;public type="id" name=<font color="red">"profile_name" id="0x7f0XXXXX"</font> />
+				</br>&lt;public type="id" name=<font color="green">"lenoxlabel" id="0x7f0XXXXX"</font> />
+				</br>&lt;public type="id" name=<font color="blue">"pp" id="0x7f0XXXXX"</font> /></code></dt>
+				</br>
+				</br>5. Download smalinya <a href="https://www.facebook.com/download/300877790094475/ui_editor_smali_v.2.zip" rel="external">di sini</a>
+				</br>
+				</br>6. Extract, masukin 3 folder ke folder smalinya SystemUI
+				</br>
+				</br>7. Penggantian id smali
+				</br>- Buka smali/com/zam/cover/Cover.smali, cari : 
+				</br><code>const v4, <font color="#FF00FF">0x7f0c00e2</font></code>
+				</br> ganti code id-nya ama id <code>lenoxpic</code> punya agan
+				</br>
+				</br>- Buka smali/com/zam/cover/Quote.smali, cari : 
+				</br><code>const v6, <font color="green">0x7f0c00e4</font></code>
+				</br> ganti code id-nya ama id <code>lenoxlabel</code> punya agan
+				</br>
+				</br>- Buka smali/com/zam/owner/ProfileName.smali, cari : 
+				</br><code>const v6, <font color="red">0x7f0c00e3</font></code>
+				</br> ganti code id-nya ama id  <code>profile_name</code> punya agan
+				</br>
+				</br>- Buka smali/com/zam/owner/ProfilePicture.smali, cari : 
+				</br><code>const v4, <font color="blue">0x7f0c00e5</font></code>
+				</br> ganti code id-nya ama id <code>pp</code> punya agan
+				</br>
+				</br>8. Kalo untuk layout FBui selesai ampe sini, recompile, push ke system.
+				</br>Tapi kalo pengen nambah lainnya, lanjut ke step berikut :
+				</br>				
+				</br>9. Smali yang ada di folder /com/zam/statusbar/... bisa di pake dimana aja, 
+				misalnya dipake buat ngisi tab kosong di expanded statusbar.
+				</br>
+				</br>tinggal atur adress smalinya seperti ini
+				</br>
+				</br>penempatan gambar
+				</br><dt><code>&lt;com.zam.statusbar.Carrier1 android:id="@+id/carrier1" ... />
+				</br>
+				</br>&lt;com.zam.statusbar.Carrier2 android:id="@+id/carrier2" ... />
+				</br>
+				</br>&lt;com.zam.statusbar.Carrier3 android:id="@id/carrier3" ... /></code></dt>
+				</br>
+				</br>penempatan text
+				</br><dt><code>&lt;com.zam.statusbar.Text1 android:id="@+id/text1" ... />
+				</br>
+				</br>&lt;com.zam.statusbar.Text2 android:id="@+id/text2" ... />	
+				</br>
+				</br>&lt;com.zam.statusbar.Text3 android:id="@+id/text3" ... /></code></dt>
+				</br>
+				</br>Recompile untuk mendapatkan id public baru, decompile lagi, lalu buka
+					smali/com/zam/statusbar/Carrier1.smali,	ganti id publicnya ama id punya agan. 
+				</br>
+				</br> Contoh:
+				</br><dt><code>&lt;public type="id" name="carrier1" id="0x7f0c003e" /></code></dt>
+				</br>maka buka Carrier1.smali, cari :
+				</br><code>const v4, 0x7f0c003e</code> dan ganti id-nya ama punya agan. Dan begitu seterusnya.
+				</br>
+				</br>10. TAMAT					
+			</div>
+			<div data-role="collapsible" data-theme="d" data-content-theme="d">
+				<h3>Issues</h3>
+				</br>= Di sebagian device yg pake Gingerbread aplikasi ini ngga berjalan
+				sempurna karena statusbar tidak menampilkan photo profile dan cover.
+				Ini 'mungkin' disebabkan karena SystemUI GB ga ada izin buat akses ke sdcard,
+				begitu pula dengan sebagian device ICS dengan masalah yg sama.
+				</br>
+				</br>- solusinya, buka AndroidManifest.xml, masukan line ini 
+				</br>
+				</br><dt><code>&lt;uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+				</br>&lt;uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /></code></dt>
+				</br>
+				</br>taro di line ke 4 atau di jajaran <code> &lt;uses-permission... </code>
+				</br>ini dicoba lo yaaa... saya jg ga yakin dengan solusi ini karena ngga punya GB :p  
+				atau bisa juga coba2 compare AndroidManifest.xml punya GB ama punya JB.
+				</br>
+				</br>= JIKA aplikasi FC ataw loading lama ketika proses cropping cover, 
+				coba ubah settingan cover quality ke medium atau low.
+				</br>
+				</br>= JIKA size, color dan style ga work mungkin smalinya belum diganti ama smali.v2, 
+				</br>kl udah diganti tp tetep ngga work, teliti lagi, 
+				</br>kl udah yakin bener tp tetep ga work kemungkinan ngga support. atau compare xmlnya ama yg work
+			</div>
+		</div>
+	</div><!--
+</body>
+</html>
